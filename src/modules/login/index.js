@@ -1,33 +1,49 @@
-import CommonTable from '@/src/components/table'
-import MockDataService from '@/src/lib/services/loginService'
-import React, { useState } from 'react'
+import MockDataService from "@/src/lib/services/loginService";
+import React, { useState } from "react";
+import OnClickModule from "../onClickModule";
+import { SampleContextFunction } from "@/src/lib/context/sampleContext";
 
 const Login = () => {
-  const [tableData, setTableData] = useState({ headers: [], body: [] })
+  const [tableData, setTableData] = useState({ headers: [], body: [] });
+  const [dropDownValue, setDropDownValue] = useState('none');
+  const options = [
+    { name: "one", value: "one" },
+    { name: "two", value: "two" },
+    { name: "three", value: "three" },
+    { name: "four", value: "four" },
+    { name: "five", value: "five" },
+  ];
   React.useEffect(() => {
-    getDummyData()
-  }, [])
-
-  const higherComponent = (WrpComp) => {
-    const HOC=()=><WrpComp headers={tableData.headers} body={tableData.body}/>
-    return HOC
-  }
-
-  const RenderHoc = higherComponent(CommonTable)
+    getDummyData();
+  }, []);
 
   const getDummyData = async () => {
     try {
-      const response = await MockDataService()
-      if (response) console.log(response)
+      const response = await MockDataService();
+      if (response) console.log(response);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
+  const onDropDownChange = (e) => {
+    setDropDownValue(e.target.value);
+  };
   return (
     <div>
-      <RenderHoc/>
+      <select onChange={(e)=>onDropDownChange(e)} value={dropDownValue}>
+        {options.map((item, index) => {
+          return (
+            <option key={index} value={item.value}>
+              {item.name}{" "}
+            </option>
+          );
+        })}
+      </select>
+      <SampleContextFunction.Provider value='Hi testing useContext'>
+     <OnClickModule/>
+     </SampleContextFunction.Provider>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
