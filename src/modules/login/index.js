@@ -8,12 +8,12 @@ const Login = () => {
     getDummyData()
   }, [])
 
-  const higherComponent = (CommonTable) => {
-    const HOC=()=><CommonTable headers={tableData.headers} body={tableData.body}/>
+  const higherComponent = (WrpComp) => {
+    const HOC=()=><WrpComp headers={tableData.headers} body={tableData.body}/>
     return HOC
   }
 
-  const RenderComponent = higherComponent(CommonTable)
+  const RenderHoc = higherComponent(CommonTable)
 
   const getDummyData = async () => {
     try {
@@ -25,7 +25,7 @@ const Login = () => {
   }
   return (
     <div>
-      <RenderComponent/>
+      <RenderHoc/>
     </div>
   )
 }
