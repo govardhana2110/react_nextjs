@@ -4,7 +4,6 @@ import OnClickModule from "../onClickModule";
 import { SampleContextFunction } from "@/src/lib/context/sampleContext";
 
 const Login = () => {
-  const [tableData, setTableData] = useState({ headers: [], body: [] });
   const [dropDownValue, setDropDownValue] = useState('none');
   const options = [
     { name: "one", value: "one" },
@@ -39,9 +38,9 @@ const Login = () => {
           );
         })}
       </select>
-      <SampleContextFunction.Provider value='Hi testing useContext'>
+      {/* <SampleContextFunction.Provider value='Hi testing useContext'>
      <OnClickModule/>
-     </SampleContextFunction.Provider>
+     </SampleContextFunction.Provider> */}
     </div>
   );
 };
