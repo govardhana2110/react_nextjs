@@ -1,8 +1,12 @@
 import CommonTable from "@/src/components/table";
+import axios from "axios";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 const Dashboard = () => {
   const [tableData, setTableData] = useState({ headers: [], body: [] });
+  const arr = [10, 5, 2, 8, 3, 1, 4, 13];
+  const target = 15;
+
   const data = [
     { match: 1, dhoni: 100, kohli: 23, rohit: 34 },
     { match: 2, dhoni: 23, hardik: 39, rohit: 23 },
@@ -25,10 +29,41 @@ const Dashboard = () => {
     },
     [tableData]
   );
-  const cal=useMemo(()=>uniqueTableData(data),[])
+  const cal = useMemo(() => uniqueTableData(data), []);
+  const getDummyData = async () => {
+    try {
+      const response = await axios.get("https://reqres.in/api/users?page=2");
+      if (response) {
+        console.log(response);
+      } else {
+        console.log("error");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const findCombinations = () => {
+    const result = [];
+    const findCombinationsRecursive = (start, target, currentCombination) => {
+      if (target === 0) {
+        result.push([...currentCombination]);
+        return;
+      }
+      for (let i = start; i < arr.length; i++) {
+        if (arr[i] > target) continue;
+        currentCombination.push(arr[i]);
+        findCombinationsRecursive(i + 1, target - arr[i], currentCombination);
+        currentCombination.pop();
+      }
+    };
+    findCombinationsRecursive(0, target, []);
+    console.log(result);
+  };
 
   useEffect(() => {
     uniqueTableData(data);
+    findCombinations();
+    // getDummyData();
   }, []);
   return (
     <div>

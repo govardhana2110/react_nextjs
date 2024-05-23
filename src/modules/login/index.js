@@ -13,7 +13,7 @@ const Login = () => {
     { name: "five", value: "five" },
   ];
   React.useEffect(() => {
-    getDummyData();
+    // getDummyData();
   }, []);
 
   const getDummyData = async () => {
